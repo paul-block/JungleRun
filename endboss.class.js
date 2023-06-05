@@ -1,54 +1,114 @@
 class Endboss extends MovableObject {
-  height = 400;
-  width = 250;
-  y = 45;
+  height = 280;
+  width = 190;
+  y = 150;
   x = 719 * 5;
-  energy = 3;
-  speed = 7.5;
-  otherDirection = false;
+  hp = 100;
   offset = {
     top: 50,
     left: 5,
     right: 5,
     bottom: 10,
   };
-  activated = false;
+  hitted = false;
+
   images_walking = [
-    "img/4_enemie_boss_chicken/1_walk/G1.png",
-    "img/4_enemie_boss_chicken/1_walk/G2.png",
-    "img/4_enemie_boss_chicken/1_walk/G3.png",
-    "img/4_enemie_boss_chicken/1_walk/G4.png",
+    "img/endboss/Walk/skeleton-Walk_0.png",
+    "img/endboss/Walk/skeleton-Walk_1.png",
+    "img/endboss/Walk/skeleton-Walk_2.png",
+    "img/endboss/Walk/skeleton-Walk_3.png",
+    "img/endboss/Walk/skeleton-Walk_4.png",
+    "img/endboss/Walk/skeleton-Walk_5.png",
+    "img/endboss/Walk/skeleton-Walk_6.png",
+    "img/endboss/Walk/skeleton-Walk_7.png",
+    "img/endboss/Walk/skeleton-Walk_8.png",
+    "img/endboss/Walk/skeleton-Walk_9.png",
+    "img/endboss/Walk/skeleton-Walk_10.png",
+    "img/endboss/Walk/skeleton-Walk_11.png",
+    "img/endboss/Walk/skeleton-Walk_12.png",
+    "img/endboss/Walk/skeleton-Walk_13.png",
+    "img/endboss/Walk/skeleton-Walk_14.png",
+    "img/endboss/Walk/skeleton-Walk_15.png",
+    "img/endboss/Walk/skeleton-Walk_16.png",
+    "img/endboss/Walk/skeleton-Walk_17.png",
+    "img/endboss/Walk/skeleton-Walk_18.png",
+    "img/endboss/Walk/skeleton-Walk_19.png",
+    "img/endboss/Walk/skeleton-Walk_20.png",
+    "img/endboss/Walk/skeleton-Walk_21.png",
+    "img/endboss/Walk/skeleton-Walk_22.png",
+    "img/endboss/Walk/skeleton-Walk_23.png",
+    "img/endboss/Walk/skeleton-Walk_24.png",
+    "img/endboss/Walk/skeleton-Walk_25.png"
   ];
 
-  images_alert = [
-    "img/4_enemie_boss_chicken/2_alert/G5.png",
-    "img/4_enemie_boss_chicken/2_alert/G6.png",
-    "img/4_enemie_boss_chicken/2_alert/G7.png",
-    "img/4_enemie_boss_chicken/2_alert/G8.png",
-    "img/4_enemie_boss_chicken/2_alert/G9.png",
-    "img/4_enemie_boss_chicken/2_alert/G10.png",
-    "img/4_enemie_boss_chicken/2_alert/G11.png",
-    "img/4_enemie_boss_chicken/2_alert/G12.png",
-  ];
   images_attack = [
-    "img/4_enemie_boss_chicken/3_attack/G13.png",
-    "img/4_enemie_boss_chicken/3_attack/G14.png",
-    "img/4_enemie_boss_chicken/3_attack/G15.png",
-    "img/4_enemie_boss_chicken/3_attack/G16.png",
-    "img/4_enemie_boss_chicken/3_attack/G17.png",
-    "img/4_enemie_boss_chicken/3_attack/G18.png",
-    "img/4_enemie_boss_chicken/3_attack/G19.png",
-    "img/4_enemie_boss_chicken/3_attack/G20.png",
+    "img/endboss/Attack/skeleton-Attack_1.png",
+    "img/endboss/Attack/skeleton-Attack_2.png",
+    "img/endboss/Attack/skeleton-Attack_3.png",
+    "img/endboss/Attack/skeleton-Attack_4.png",
+    "img/endboss/Attack/skeleton-Attack_5.png",
+    "img/endboss/Attack/skeleton-Attack_6.png",
+    "img/endboss/Attack/skeleton-Attack_7.png",
+    "img/endboss/Attack/skeleton-Attack_8.png",
+    "img/endboss/Attack/skeleton-Attack_9.png",
+    "img/endboss/Attack/skeleton-Attack_10.png",
+    "img/endboss/Attack/skeleton-Attack_11.png",
+    "img/endboss/Attack/skeleton-Attack_12.png",
+    "img/endboss/Attack/skeleton-Attack_13.png",
+    "img/endboss/Attack/skeleton-Attack_14.png",
+    "img/endboss/Attack/skeleton-Attack_15.png",
+    "img/endboss/Attack/skeleton-Attack_16.png",
+    "img/endboss/Attack/skeleton-Attack_17.png",
+    "img/endboss/Attack/skeleton-Attack_18.png",
+    "img/endboss/Attack/skeleton-Attack_19.png",
+    "img/endboss/Attack/skeleton-Attack_20.png",
+    "img/endboss/Attack/skeleton-Attack_21.png"
   ];
-  images_hurt = [
-    "img/4_enemie_boss_chicken/4_hurt/G21.png",
-    "img/4_enemie_boss_chicken/4_hurt/G21.png",
-    "img/4_enemie_boss_chicken/4_hurt/G21.png",
+
+  images_idle = [
+    "img/endboss/Idle/skeleton-Idle_0.png",
+    "img/endboss/Idle/skeleton-Idle_1.png",
+    "img/endboss/Idle/skeleton-Idle_2.png",
+    "img/endboss/Idle/skeleton-Idle_3.png",
+    "img/endboss/Idle/skeleton-Idle_4.png",
+    "img/endboss/Idle/skeleton-Idle_5.png",
+    "img/endboss/Idle/skeleton-Idle_6.png",
+    "img/endboss/Idle/skeleton-Idle_7.png",
+    "img/endboss/Idle/skeleton-Idle_8.png",
+    "img/endboss/Idle/skeleton-Idle_9.png",
+    "img/endboss/Idle/skeleton-Idle_10.png",
+    "img/endboss/Idle/skeleton-Idle_11.png",
+    "img/endboss/Idle/skeleton-Idle_12.png",
+    "img/endboss/Idle/skeleton-Idle_13.png",
+    "img/endboss/Idle/skeleton-Idle_14.png",
+    "img/endboss/Idle/skeleton-Idle_15.png",
+    "img/endboss/Idle/skeleton-Idle_16.png",
+    "img/endboss/Idle/skeleton-Idle_17.png"
   ];
-  images_dying = [
-    "img/4_enemie_boss_chicken/5_dead/G24.png",
-    "img/4_enemie_boss_chicken/5_dead/G25.png",
-    "img/4_enemie_boss_chicken/5_dead/G26.png",
+
+  image_dead = [
+    "img/DeadSprite/DeadFx_00.png",
+    "img/DeadSprite/DeadFx_01.png",
+    "img/DeadSprite/DeadFx_02.png",
+    "img/DeadSprite/DeadFx_03.png",
+    "img/DeadSprite/DeadFx_04.png",
+    "img/DeadSprite/DeadFx_05.png",
+    "img/DeadSprite/DeadFx_06.png",
+    "img/DeadSprite/DeadFx_07.png",
+    "img/DeadSprite/DeadFx_08.png",
+    "img/DeadSprite/DeadFx_09.png",
+    "img/DeadSprite/DeadFx_10.png",
+    "img/DeadSprite/DeadFx_11.png",
+    "img/DeadSprite/DeadFx_12.png",
+    "img/DeadSprite/DeadFx_13.png",
+    "img/DeadSprite/DeadFx_14.png",
+    "img/DeadSprite/DeadFx_15.png",
+    "img/DeadSprite/DeadFx_16.png",
+    "img/DeadSprite/DeadFx_17.png",
+    "img/DeadSprite/DeadFx_18.png",
+    "img/DeadSprite/DeadFx_19.png",
+    "img/WorldBackground/transparent.png",
+    "img/WorldBackground/transparent.png"
   ];
 
   audio_dying = new Audio("audio/win.mp3");
@@ -56,51 +116,36 @@ class Endboss extends MovableObject {
   constructor() {
     super().loadImage(this.images_walking[0]);
     this.loadImages(this.images_attack);
-    this.loadImages(this.images_dying);
-    this.loadImages(this.images_alert);
+    this.loadImages(this.images_idle);
     this.loadImages(this.images_walking);
-    this.loadImages(this.images_hurt);
+    this.loadImages(this.image_dead);
+    this.animate();
   }
 
-  checkCondition() {
-    if (this.energy == 3) this.playAnimation(this.images_alert);
-    if (this.energy < 3 && !this.otherDirection) {
-      this.playAnimation(this.images_attack);
-      this.moveLeft();
-      this.changeDirectionRight();
-    }
-    if (this.energy < 3 && this.otherDirection) {
-      this.playAnimation(this.images_attack);
-      this.moveRight();
-      this.changeDirectionLeft();
-    }
-    this.checkIsDead();
-  }
-
-  checkIsDead() {
-    if (this.energy == 0) {
-      this.speed = 0;
-      this.playAnimation(this.images_dying);
-      if(!world.character.mute) {
-        this.audio_dying.play();
+  animate() {
+    setInterval(() => {
+      if (!this.hitted) this.playAnimation(this.images_idle);
+      if (this.hitted) {
+        this.playAnimation(this.images_attack);
       }
-    }
+    }, 50);
+    setInterval(() => {
+      if (this.hp == 0 && this.hitted) {
+        this.speed = 0;
+        this.playAnimationOnce(this.image_dead);
+      }
+    }, 50);
   }
 
-  hitted() {
-    this.playAnimation(this.images_hurt);
-    this.energy--;
-  }
+  // changeDirectionRight() {
+  //   setTimeout(() => {
+  //     this.otherDirection = true;
+  //   }, 7500);
+  // }
 
-  changeDirectionRight() {
-    setTimeout(() => {
-      this.otherDirection = true;
-    }, 7500);
-  }
-
-  changeDirectionLeft() {
-    setTimeout(() => {
-      this.otherDirection = false;
-    }, 6000);
-  }
+  // changeDirectionLeft() {
+  //   setTimeout(() => {
+  //     this.otherDirection = false;
+  //   }, 6000);
+  // }
 }

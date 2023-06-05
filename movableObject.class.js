@@ -11,8 +11,10 @@ class MovableObject extends DrawableObject {
     right: 0,
     bottom: 0,
   };
-
+  lastShot = new Date().getTime();;
   dead = false;
+  isOnPlatform = false;
+  isFlying = false;
 
   playAnimation(images) {
     let i = this.currentImg % images.length;
@@ -70,6 +72,17 @@ class MovableObject extends DrawableObject {
     return timepassed < 1;
   }
 
+  timepassed() {
+    let timepassed = new Date().getTime() - this.lastShot; // Differenz in ms
+    timepassed = timepassed / 1000; // Differenz in sekunden
+    console.log(timepassed);
+    if (timepassed > 0.3) {
+      this.lastShot = new Date().getTime();
+      return true;
+    }
+    else return false;
+  }
+
   moveLeft() {
     this.x -= this.speed;
   }
@@ -80,18 +93,36 @@ class MovableObject extends DrawableObject {
 
   applyGravity() {
     setStoppableInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
+      if (!this.isFlying) {
+        if (this.isAboveGround() || this.speedY > 0) {
+          this.y -= this.speedY;
+          this.speedY -= this.acceleration;
+        }
       }
     }, 1000 / 25);
+  }
+
+  applyFlyMode() {
+    setStoppableInterval(() => {
+      if (this.world.keyboard.f && this.world.keyboard.up) {
+        this.y -= 20;
+      } if (this.world.keyboard.f && this.world.keyboard.down) {
+        this.y += 20;
+      }
+    }, 1000 / 25);
+  }
+
+  platformContact() {
+    if (this instanceof PlatformObject) return true;
   }
 
   isAboveGround() {
     if (this instanceof ThrowableObject) return true;
     if (this instanceof Bomb) return this.y < 340;
-    // else return this.y < 180;
+    else return this.y < 240;
+    // Abfrage rein wenn character auf platform steht return false
   }
+
 
   jump() {
     this.speedY = 40;

@@ -21,6 +21,6 @@ class CollectableThrowingStar extends MovableObject {
         );
         this.loadImages(this.image_throwingStar);
         this.x = x;
-        this.y = 200;
+        this.y = 180;
     }
 }

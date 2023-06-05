@@ -6,17 +6,23 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
+  camera_y = 0;
   levelSize = 100;
   StatusBarHealth = new StatusBarHealth();
   StatusBarBottle = new StatusBarBottle();
   StatusBarCoins = new StatusBarCoins();
   StatusBarEndboss = new StatusBarEndboss();
+  Score = new Score();
+  ComboPupup = new ComboPupup();
   throwableObjects = [];
   doAnimation = true;
   clearIntervals;
   collectedCoinsStorage = [];
   collectedThrowingStars = [];
   droppedBombs = [];
+  bullets = [];
+  characterIsFlying = false;
+  shootingAnimationFlying = [];
 
   constructor(canvas, keyboard, clearIntervals, gameOver) {
     this.ctx = canvas.getContext("2d");
@@ -34,8 +40,8 @@ class World {
     setStoppableInterval(() => {
       this.checkShoot();
       this.swordAttack();
-      this.checkCollissionBombs();
-    }, 250);
+      // this.checkCollissionBombs();
+    }, 50);
 
     setStoppableInterval(() => {
       this.checkCollisionPlatform();
@@ -45,10 +51,11 @@ class World {
       this.checkThrowingStarCollisionWithEnemies();
       this.checkOnTopOfEnemy();
       this.checkBackgroundMusic();
-      this.character.checkIdleMode();
-      this.stopGame();
-      this.flyingEnemyDropBomb();
-      this.consoleCheck();
+      // this.stopGame();
+      // this.flyingEnemyDropBomb();
+      this.checkEndbossKilled();
+      this.checkCollisionBullets();
+      this.shootFlyMode();
     }, 50);
   }
 
@@ -66,11 +73,11 @@ class World {
         this.showEndscreen();
       }, 450);
     }
-    if (this.endboss.energy == 0) {
-      setTimeout(() => {
-        this.showEndscreen();
-      }, 2000);
-    }
+    // if (this.endboss.energy == 0) {
+    // setTimeout(() => {
+    //   this.showEndscreen();
+    // }, 2000);
+    // }
   }
 
   checkUnstoppable() {
@@ -83,13 +90,6 @@ class World {
       }, 3000);
     }
   }
-
-  consoleCheck() {
-    console.log("funktioniert", this.level.flyingEnemies[0].drop);
-  }
-
-  // ENEMIES FLY IN EIGENES PARAMETER IN LEVEL GEBEN UND ARRAY IN LEVEL 1
-  // COLLISION BOMBS MIT CHARACTER 
 
   checkCollissionBombs() {
     this.droppedBombs.forEach((bomb) => {
@@ -106,9 +106,29 @@ class World {
           enemy.hp -= 10;
           setTimeout(() => {
             if (enemy.hp <= 0) {
-              this.level.enemies.splice(hittedEnemy, 1);
+              this.level.enemies[hittedEnemy].dead = true;
+              setTimeout(() => {
+                this.level.enemies.splice(hittedEnemy, 1);
+              }, 2000);
             }
           }, 800);
+        }
+      });
+    });
+  }
+
+  checkCollisionBullets() {
+    this.bullets.forEach((bullet, bulletIndex) => {
+      this.level.enemies.forEach((enemy, enemyIndex) => {
+        if (enemy.isColliding(bullet)) {
+          enemy.hitted = true;
+          enemy.hp -= 10;
+          this.bullets.splice(bulletIndex, 1);
+          setTimeout(() => {
+            if (enemy.hp <= 0) {
+              this.level.enemies.splice(enemyIndex, 1);
+            }
+          }, 50);
         }
       });
     });
@@ -127,16 +147,28 @@ class World {
   //   }
   // }
 
+  checkEndbossKilled() {
+    if (this.endboss.isColliding(this.character) && this.character.attack()) {
+      console.log(this.endboss.hp);
+      this.endboss.hitted = true;
+      console.log(this.endboss.hitted);
+      this.endboss.hp -= 10;
+    }
+    else if (this.character.isColliding(this.endboss)) {
+      this.character.hit();
+      this.StatusBarHealth.setPercentage(this.character.energy);
+    }
+  }
 
   flyingEnemyDropBomb() {
     this.level.flyingEnemies.forEach((enemy) => {
       if (enemy.drop) {
+        enemy.playAnimation(enemy.images_attack);
         let bomb = new Bomb(
-          enemy.x + 50,
-          enemy.y + 80
+          enemy.x + 100,
+          enemy.y + 100
         );
         this.droppedBombs.push(bomb);
-
         setTimeout(() => {
           this.droppedBombs.splice(bomb, 1);
         }, 1000);
@@ -157,6 +189,11 @@ class World {
         this.level.enemies[hittedEnemy].hitted = true;
         this.level.enemies[hittedEnemy].hp = 0;
         this.level.enemies[hittedEnemy].dead = true;
+        if (this.level.enemies[hittedEnemy].hp = 0) {
+          setTimeout(() => {
+            this.level.enemies.splice(hittedEnemy, 1);
+          }, 2000);
+        }
       }
     }
   }
@@ -170,7 +207,12 @@ class World {
         enemy.hp -= 10;
         console.log(enemy.hp);
         if (enemy.hp == 0) {
+          // this.ComboPupup.show(enemy.x + this.camera_x + 80, 300);
           this.level.enemies[hittedEnemy].dead = true;
+          this.Score.addScore(10);
+          setTimeout(() => {
+            this.level.enemies.splice(hittedEnemy, 1);
+          }, 2000);
         }
       }
     });
@@ -198,45 +240,63 @@ class World {
     });
   }
 
-  // checkCollisionPlatform() {
-  //   this.level.platforms.forEach((platform) => {
-  //     if (this.character.y + this.character.height == platform.y + platform.height
-  //       && this.character.x > platform.x &&
-  //       this.character.x + this.character.width < platform.x + platform.width) {
-  //       console.log("hitted");
-  //     }
-  //   });
-  // }
-
   checkCollisionPlatform() {
-    this.level.platforms.forEach((platform) => {
-      if (this.character.isColliding(platform))
-        console.log("platform contact");
-      if (this.character.isOnTop(platform)) {
+    this.character.isOnPlatform = false;
+    this.level.platforms1.forEach((platform) => {
+      if (this.character.isColliding(platform) && !this.keyboard.space && !this.character.isFlying) {
+        console.log(this.character.isOnPlatform);
         this.character.isOnPlatform = true;
-        this.character.y = platform.y - this.character.y;
+        this.character.y = 80;
+        this.character.speedY = 0;
       }
-      if (!this.character.isColliding(platform)) {
-        this.character.isOnPlatform = false;
-        this.character.y = 200;
+    });
+    this.level.platforms2.forEach((platform) => {
+      if (this.character.isColliding(platform) && !this.keyboard.space && !this.character.isFlying) {
+        this.character.isOnPlatform = true;
+        this.character.y = -20;
+        this.character.speedY = 0;
       }
     });
   }
 
+  shootFlyMode() {
+    if (this.characterIsFlying && this.keyboard.space && this.character.machineGunTimepassed()) {
+      let bullet = new Bullet(
+        this.character.x + 165,
+        this.character.y + 174
+      );
+      let shoot = new ShootAnimation(
+        this.character.x + 162,
+        this.character.y + 155
+      );
+      let shoot2 = new ShootAnimation(
+        this.character.x + 130,
+        this.character.y + 156
+      );
+      this.shootingAnimationFlying.push(shoot, shoot2);
+      this.bullets.push(bullet);
+
+      setTimeout(() => {
+        this.bullets.splice(bullet, 1);
+      }, 1500);
+      setTimeout(() => {
+        this.shootingAnimationFlying.splice(shoot, 2);
+      }, 10);
+    }
+  }
+
   // checkCollisionPlatform() {
+  //   this.character.isOnPlatform = false;
+
   //   this.level.platforms.forEach((platform) => {
-  //     if (this.character.isColliding(platform) && this.character.isOnTop(platform)) {
-  //       console.log("platform contact");
+  //     if (this.character.isColliding(platform)) {
+  //       console.log(this.character.isOnPlatform);
   //       this.character.isOnPlatform = true;
-  //       this.character.y = platform.y - this.character.y;
-  //     }
-  //     if (this.character.isOnPlatform && !this.character.isColliding(platform)) {
-  //       this.character.isOnPlatform = false;
-  //       this.character.y = 200;
-  //     }
-  //     else if (!this.character.isColliding(platform) && !this.character.isOnTop(platform)) {
-  //       this.character.isOnPlatform = false;
-  //       this.character.y = 200;
+  //       this.character.y += 5;
+  //       if (this.character.y >= 80) {
+  //         this.character.y = 80;
+  //         this.character.speedY = 0;
+  //       }
   //     }
   //   });
   // }
@@ -245,6 +305,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.characterCanCollide(enemy)) {
         this.character.hit();
+        this.Score.minusScore(5);
         let hurtsound = this.character.audio_hurt;
         hurtsound.playbackRate = 3;
         if (!this.character.mute) hurtsound.play();
@@ -252,19 +313,6 @@ class World {
       }
     });
   }
-
-  // checkThrowingStarCollisionWithEnemies() {
-  //   this.collectedThrowingStars.forEach((star) => {
-  //     this.level.enemies.forEach((enemy, y) => {
-  //       if (star.isColliding(enemy)) {
-  //         this.collectedThrowingStars.splice(star);
-  //         let hittedEnemy = this.level.enemies.indexOf(enemy);
-  //         console.log(hittedEnemy);
-  //         this.level.enemies.splice(hittedEnemy, 1);
-  //       }
-  //     });
-  //   });
-  // }
 
   checkThrowingStarCollisionWithEnemies() {
     this.collectedThrowingStars.forEach((star) => {
@@ -278,6 +326,7 @@ class World {
           console.log(enemy.hp);
           if (enemy.hp == 0) {
             this.level.enemies[hittedEnemy].dead = true;
+            this.level.enemies.splice(hittedEnemy, 1);
           }
         }
       });
@@ -285,9 +334,9 @@ class World {
   }
 
   checkShoot() {
-    if (this.keyboard.d && this.character.collectedThrowingStars > 0) {
+    if (this.keyboard.d && this.character.collectedThrowingStars > 0 && this.character.timepassed()) {
       let star = new AttackThrowingStar(
-        this.character.x + 100,
+        this.character.x + 120,
         this.character.y + 100
       );
       this.collectedThrowingStars.push(star);
@@ -302,8 +351,11 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.ctx.translate(this.camera_x, 0);
+    // camera Y integrieren
     this.addObjectsToMap(this.level.backgroundObjects);
-    this.addObjectsToMap(this.level.platforms);
+    this.addObjectsToMap(this.level.platforms1);
+    this.addObjectsToMap(this.level.platforms2);
+    this.addObjectsToMap(this.level.endboss);
     if (this.character.doAnimation) {
       this.addToMap(this.character);
       this.ctx.translate(-this.camera_x, 0);
@@ -330,6 +382,16 @@ class World {
     }
     mo.draw(this.ctx);
     // mo.drawFrame(this.ctx);
+    if (mo.otherDirection) {
+      this.flipImageBack(mo);
+    }
+  }
+
+  addScoreToMap(mo) {
+    if (mo.otherDirection) {
+      this.flipImage(mo);
+    }
+    mo.drawScore(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -382,11 +444,15 @@ class World {
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.collectedThrowingStars);
     this.addObjectsToMap(this.droppedBombs);
+    this.addObjectsToMap(this.bullets);
+    this.addObjectsToMap(this.shootingAnimationFlying);
   }
 
   addStatusbars() {
     this.addToMap(this.StatusBarHealth);
     this.addToMap(this.StatusBarCoins);
+    this.addScoreToMap(this.Score);
+    this.addScoreToMap(this.ComboPupup);
   }
 
   characterCanCollide(enemy) {

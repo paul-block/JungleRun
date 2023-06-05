@@ -47,8 +47,8 @@ class Bomb extends MovableObject {
         this.loadImages(this.image_explosion);
         this.x = x;
         this.y = y;
-        this.height = 35;
-        this.width = 35;
+        this.height = 45;
+        this.width = 45;
         this.animate();
         this.applyGravity();
     }

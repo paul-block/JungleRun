@@ -1,58 +1,8 @@
 class Enemy1 extends MovableObject {
-  height = 150;
-  width = 150;
+  height = 200;
+  width = 250;
   y = 20;
   x = 400 + Math.random() * 3000;
-  images_walking = [
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_00.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_01.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_02.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_03.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_04.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_05.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_06.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_07.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_08.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_09.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_10.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_11.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_12.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_13.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_14.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_15.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_16.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_17.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_18.png",
-    "img/Mons 4/IdleFly and Move/IdleFlyandMove_19.png"
-  ];
-
-  images_attack = [
-    "img/Mons 4/Attack/Attack_00.png",
-    "img/Mons 4/Attack/Attack_01.png",
-    "img/Mons 4/Attack/Attack_02.png",
-    "img/Mons 4/Attack/Attack_03.png",
-    "img/Mons 4/Attack/Attack_04.png",
-    "img/Mons 4/Attack/Attack_05.png",
-    "img/Mons 4/Attack/Attack_06.png",
-    "img/Mons 4/Attack/Attack_07.png",
-    "img/Mons 4/Attack/Attack_08.png",
-    "img/Mons 4/Attack/Attack_09.png",
-    "img/Mons 4/Attack/Attack_10.png",
-    "img/Mons 4/Attack/Attack_11.png",
-    "img/Mons 4/Attack/Attack_12.png",
-    "img/Mons 4/Attack/Attack_13.png",
-    "img/Mons 4/Attack/Attack_14.png",
-    "img/Mons 4/Attack/Attack_15.png",
-    "img/Mons 4/Attack/Attack_16.png",
-    "img/Mons 4/Attack/Attack_17.png",
-    "img/Mons 4/Attack/Attack_18.png",
-    "img/Mons 4/Attack/Attack_19.png",
-    "img/Mons 4/Attack/Attack_20.png",
-    "img/Mons 4/Attack/Attack_21.png",
-    "img/Mons 4/Attack/Attack_22.png",
-    "img/Mons 4/Attack/Attack_23.png",
-    "img/Mons 4/Attack/Attack_24.png"
-  ];
 
   image_dead = [
     "img/DeadSprite/DeadFx_00.png",
@@ -79,11 +29,55 @@ class Enemy1 extends MovableObject {
     "img/WorldBackground/transparent.png"
   ];
 
+  images_flying = [
+    'img/FlyingMonster/Moving/Moving_01.png',
+    'img/FlyingMonster/Moving/Moving_02.png',
+    'img/FlyingMonster/Moving/Moving_03.png',
+    'img/FlyingMonster/Moving/Moving_04.png',
+    'img/FlyingMonster/Moving/Moving_05.png',
+    'img/FlyingMonster/Moving/Moving_06.png',
+    'img/FlyingMonster/Moving/Moving_07.png',
+    'img/FlyingMonster/Moving/Moving_08.png',
+    'img/FlyingMonster/Moving/Moving_09.png',
+    'img/FlyingMonster/Moving/Moving_10.png',
+    'img/FlyingMonster/Moving/Moving_11.png',
+    'img/FlyingMonster/Moving/Moving_12.png',
+    'img/FlyingMonster/Moving/Moving_13.png',
+    'img/FlyingMonster/Moving/Moving_14.png',
+    'img/FlyingMonster/Moving/Moving_15.png',
+    'img/FlyingMonster/Moving/Moving_16.png',
+    'img/FlyingMonster/Moving/Moving_17.png',
+    'img/FlyingMonster/Moving/Moving_18.png',
+    'img/FlyingMonster/Moving/Moving_19.png'
+  ];
+
+  images_attack = [
+    'img/FlyingMonster/LoseBomb/LoseBomb_01.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_02.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_03.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_04.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_05.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_06.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_07.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_08.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_09.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_10.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_11.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_12.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_13.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_14.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_15.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_16.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_17.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_18.png',
+    'img/FlyingMonster/LoseBomb/LoseBomb_19.png'
+  ];
+
   offset = {
-    top: 40,
-    left: 30,
-    right: 30,
-    bottom: 40
+    top: 45,
+    left: 90,
+    right: 90,
+    bottom: 45
   };
   hitted = false;
   dead = false;
@@ -92,17 +86,36 @@ class Enemy1 extends MovableObject {
   drop = false;
 
   constructor(bombTime) {
-    super().loadImage("img/Mons 4/IdleFly and Move/IdleFlyandMove_00.png");
-    this.loadImages(this.images_walking);
+    super().loadImage("img/FlyingMonster/Moving/Moving_01.png");
+    this.loadImages(this.images_flying);
     this.loadImages(this.image_dead);
     this.loadImages(this.images_attack);
-
     this.animate();
     this.speed = 0.5 + Math.random() * 0.25;
-    setInterval(() => {
-      this.setRandomDrop();
-    }, bombTime);
+    // setInterval(() => {
+    //   this.setRandomDrop();
+    // }, bombTime);
   }
+
+  // animate() {
+  //   setInterval(() => {
+  //     this.moveLeft();
+  //   }, 1000 / 60);
+
+  //   setInterval(() => {
+  //     if (!this.hitted) this.playAnimation(this.images_walking);
+  //     else if (this.hp == 10 && this.hitted) {
+  //       if (this.speed <= 0.5) {
+  //         this.speed = this.speed + Math.random() * 0.1;
+  //       }
+  //       this.playAnimation(this.images_attack);
+  //     }
+  //     else if (this.hp == 0 && this.dead) {
+  //       this.playAnimationOnce(this.image_dead);
+  //       this.speed = 0;
+  //     }
+  //   }, 100);
+  // }
 
   animate() {
     setInterval(() => {
@@ -110,7 +123,7 @@ class Enemy1 extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      if (!this.hitted) this.playAnimation(this.images_walking);
+      if (!this.hitted) this.playAnimation(this.images_flying);
       else if (this.hp == 10 && this.hitted) {
         if (this.speed <= 0.5) {
           this.speed = this.speed + Math.random() * 0.1;
@@ -121,7 +134,7 @@ class Enemy1 extends MovableObject {
         this.playAnimationOnce(this.image_dead);
         this.speed = 0;
       }
-    }, 100);
+    }, 50);
   }
 
   setRandomDrop() {

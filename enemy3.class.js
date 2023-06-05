@@ -1,100 +1,121 @@
 class Enemy3 extends MovableObject {
-    height = 150;
-    width = 150;
-    y = 270;
+    height = 120;
+    width = 100;
+    y = 310;
     x = 600 + Math.random() * 3000;
     images_walking = [
-        "img/Mons 5/Walk/skeleton-Walk_00.png",
-        "img/Mons 5/Walk/skeleton-Walk_01.png",
-        "img/Mons 5/Walk/skeleton-Walk_02.png",
-        "img/Mons 5/Walk/skeleton-Walk_03.png",
-        "img/Mons 5/Walk/skeleton-Walk_04.png",
-        "img/Mons 5/Walk/skeleton-Walk_05.png",
-        "img/Mons 5/Walk/skeleton-Walk_06.png",
-        "img/Mons 5/Walk/skeleton-Walk_07.png",
-        "img/Mons 5/Walk/skeleton-Walk_08.png",
-        "img/Mons 5/Walk/skeleton-Walk_09.png",
-        "img/Mons 5/Walk/skeleton-Walk_10.png",
-        "img/Mons 5/Walk/skeleton-Walk_11.png",
-        "img/Mons 5/Walk/skeleton-Walk_12.png",
-        "img/Mons 5/Walk/skeleton-Walk_13.png",
-        "img/Mons 5/Walk/skeleton-Walk_14.png",
-        "img/Mons 5/Walk/skeleton-Walk_15.png",
-        "img/Mons 5/Walk/skeleton-Walk_16.png",
-        "img/Mons 5/Walk/skeleton-Walk_17.png",
-        "img/Mons 5/Walk/skeleton-Walk_18.png",
-        "img/Mons 5/Walk/skeleton-Walk_19.png"
+        "img/enemies/Char02/Walk/skeleton-Walk_0.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_1.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_2.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_3.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_4.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_5.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_6.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_7.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_8.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_9.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_10.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_11.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_12.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_13.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_14.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_15.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_16.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_17.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_18.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_19.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_20.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_21.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_22.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_23.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_24.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_25.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_26.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_27.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_28.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_29.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_30.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_31.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_32.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_33.png",
+        "img/enemies/Char02/Walk/skeleton-Walk_34.png"
     ];
     image_dead = [
-        "img/DeadSprite/DeadFx_00.png",
-        "img/DeadSprite/DeadFx_01.png",
-        "img/DeadSprite/DeadFx_02.png",
-        "img/DeadSprite/DeadFx_03.png",
-        "img/DeadSprite/DeadFx_04.png",
-        "img/DeadSprite/DeadFx_05.png",
-        "img/DeadSprite/DeadFx_06.png",
-        "img/DeadSprite/DeadFx_07.png",
-        "img/DeadSprite/DeadFx_08.png",
-        "img/DeadSprite/DeadFx_09.png",
-        "img/DeadSprite/DeadFx_10.png",
-        "img/DeadSprite/DeadFx_11.png",
-        "img/DeadSprite/DeadFx_12.png",
-        "img/DeadSprite/DeadFx_13.png",
-        "img/DeadSprite/DeadFx_14.png",
-        "img/DeadSprite/DeadFx_15.png",
-        "img/DeadSprite/DeadFx_16.png",
-        "img/DeadSprite/DeadFx_17.png",
-        "img/DeadSprite/DeadFx_18.png",
-        "img/DeadSprite/DeadFx_19.png",
+        "img/enemies/DeathFx/skeleton-animation_0.png",
+        "img/enemies/DeathFx/skeleton-animation_1.png",
+        "img/enemies/DeathFx/skeleton-animation_2.png",
+        "img/enemies/DeathFx/skeleton-animation_3.png",
+        "img/enemies/DeathFx/skeleton-animation_4.png",
+        "img/enemies/DeathFx/skeleton-animation_5.png",
+        "img/enemies/DeathFx/skeleton-animation_6.png",
+        "img/enemies/DeathFx/skeleton-animation_7.png",
+        "img/enemies/DeathFx/skeleton-animation_8.png",
+        "img/enemies/DeathFx/skeleton-animation_9.png",
+        "img/enemies/DeathFx/skeleton-animation_10.png",
+        "img/enemies/DeathFx/skeleton-animation_11.png",
+        "img/enemies/DeathFx/skeleton-animation_12.png",
+        "img/enemies/DeathFx/skeleton-animation_13.png",
+        "img/enemies/DeathFx/skeleton-animation_14.png",
+        "img/enemies/DeathFx/skeleton-animation_15.png",
+        "img/enemies/DeathFx/skeleton-animation_16.png",
+        "img/enemies/DeathFx/skeleton-animation_17.png",
         "img/WorldBackground/transparent.png",
         "img/WorldBackground/transparent.png"
     ];
 
     images_attack = [
-        "img/Mons 5/Attack/Attack_00.png",
-        "img/Mons 5/Attack/Attack_01.png",
-        "img/Mons 5/Attack/Attack_02.png",
-        "img/Mons 5/Attack/Attack_03.png",
-        "img/Mons 5/Attack/Attack_04.png",
-        "img/Mons 5/Attack/Attack_05.png",
-        "img/Mons 5/Attack/Attack_06.png",
-        "img/Mons 5/Attack/Attack_07.png",
-        "img/Mons 5/Attack/Attack_08.png",
-        "img/Mons 5/Attack/Attack_09.png",
-        "img/Mons 5/Attack/Attack_10.png",
-        "img/Mons 5/Attack/Attack_11.png",
-        "img/Mons 5/Attack/Attack_12.png",
-        "img/Mons 5/Attack/Attack_13.png",
-        "img/Mons 5/Attack/Attack_14.png",
-        "img/Mons 5/Attack/Attack_15.png",
-        "img/Mons 5/Attack/Attack_16.png",
-        "img/Mons 5/Attack/Attack_17.png",
-        "img/Mons 5/Attack/Attack_18.png",
-        "img/Mons 5/Attack/Attack_19.png",
-        "img/Mons 5/Attack/Attack_20.png",
-        "img/Mons 5/Attack/Attack_21.png",
-        "img/Mons 5/Attack/Attack_22.png",
-        "img/Mons 5/Attack/Attack_23.png",
-        "img/Mons 5/Attack/Attack_24.png"
+        "img/enemies/Char02/Attack/skeleton-Attack_0.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_1.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_2.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_3.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_4.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_5.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_6.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_7.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_8.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_9.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_10.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_11.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_12.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_13.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_14.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_15.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_16.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_17.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_18.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_19.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_20.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_21.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_22.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_23.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_24.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_25.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_26.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_27.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_28.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_29.png",
+        "img/enemies/Char02/Attack/skeleton-Attack_30.png",
     ];
 
     offset = {
-        top: 45,
-        left: 40,
-        right: 40,
-        bottom: 15
+        top: 5,
+        left: 0,
+        right: 5,
+        bottom: 0
     };
     hitted = false;
     audio_hitted = new Audio("audio/chickenHitted.mp3");
     hp = 20;
+    newXset = false;
 
 
     constructor() {
-        super().loadImage("img/Mons 2/Walk/Walk_00.png");
+        super().loadImage("img/Mons 5/Walk/skeleton-Walk_00.png");
         this.loadImages(this.images_walking);
         this.loadImages(this.image_dead);
         this.loadImages(this.images_attack);
         this.animate();
+        this.setXforAttack();
         this.speed = 0.15 + Math.random() * 0.25;
     }
 
@@ -109,12 +130,33 @@ class Enemy3 extends MovableObject {
                 if (this.speed <= 0.5) {
                     this.speed = this.speed + Math.random() * 0.1;
                 }
+                this.height = 210;
+                this.width = 200;
+                this.y = 260;
+                if (!this.newXset) {
+                    this.x = this.x - 70;
+                    this.newXset = true;
+                }
+                this.offset = {
+                    top: 50,
+                    left: 50,
+                    right: 40,
+                    bottom: 40
+                };
                 this.playAnimation(this.images_attack);
             }
-            else if (this.hp == 0 && this.hitted) {
-                this.playAnimationOnce(this.image_dead);
-                this.speed = 0;
-            }
         }, 20);
+        setInterval(() => {
+            if (this.hp == 0 && this.hitted) {
+                this.speed = 0;
+                this.playAnimationOnce(this.image_dead);
+            }
+        }, 50);
+    }
+
+    setXforAttack() {
+        if (!this.newXset) {
+            this.x = this.x - 100;
+        }
     }
 }

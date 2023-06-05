@@ -1,4 +1,4 @@
-class PlatformObject extends MovableObject {
+class PlatformObject2 extends MovableObject {
     width = 180;
     height = 158;
 

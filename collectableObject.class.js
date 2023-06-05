@@ -3,10 +3,10 @@ class CollectableObject extends MovableObject {
   height = 120;
   width = 120;
   offset = {
-    top: 30,
-    left: 30,
-    right: 30,
-    bottom: 30,
+    top: 35,
+    left: 35,
+    right: 35,
+    bottom: 35,
   };
   collected = false;
 

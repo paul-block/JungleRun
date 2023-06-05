@@ -1,15 +1,15 @@
 class Character extends MovableObject {
-  height = 280;
+  height = 250;
   width = 200;
-  y = 200;
+  y = 240;
   speed = 4;
   collectedCoins = 0;
   collectedThrowingStars = 0;
   offset = {
-    top: 100,
+    top: 87,
     left: 70,
-    right: 75,
-    bottom: 70
+    right: 80,
+    bottom: 60
   };
   boostHP = false;
   doAnimation = true;
@@ -17,10 +17,11 @@ class Character extends MovableObject {
   idle = false;
   shoot = false;
   longIdle = false;
-  unstoppable = false;
   mute = true;
   muteBg = true;
-
+  isOnPlatform = false;
+  landing = false;
+  // isJumping = false;
 
   images_run = [
     "img/main character sprites/Character 01/Png/Character Sprite/Fast Run/Character-FastRun_0.png",
@@ -34,6 +35,22 @@ class Character extends MovableObject {
   ];
 
   images_walking = [
+    // "img/Player/Walk/Walk_000.png",
+    // "img/Player/Walk/Walk_001.png",
+    // "img/Player/Walk/Walk_002.png",
+    // "img/Player/Walk/Walk_003.png",
+    // "img/Player/Walk/Walk_004.png",
+    // "img/Player/Walk/Walk_005.png",
+    // "img/Player/Walk/Walk_006.png",
+    // "img/Player/Walk/Walk_007.png",
+    // "img/Player/Walk/Walk_008.png",
+    // "img/Player/Walk/Walk_009.png",
+    // "img/Player/Walk/Walk_010.png",
+    // "img/Player/Walk/Walk_011.png",
+    // "img/Player/Walk/Walk_012.png",
+    // "img/Player/Walk/Walk_013.png",
+    // "img/Player/Walk/Walk_014.png",
+    // "img/Player/Walk/Walk_015.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_00.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_01.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_02.png",
@@ -61,8 +78,19 @@ class Character extends MovableObject {
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_24.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_25.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_26.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_27.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_28.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_29.png",
   ];
   images_jumping = [
+    // "img/Player/Jump/Jump_000.png",
+    // "img/Player/Jump/Jump_001.png",
+    // "img/Player/Jump/Jump_002.png",
+    // "img/Player/Jump/Jump_003.png",
+    // "img/Player/Jump/Jump_004.png",
+    // "img/Player/Jump/Jump_005.png",
+    // "img/Player/Jump/Jump_006.png",
+    // "img/Player/Jump/Jump_007.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Jump/Character-Jump_00.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Jump/Character-Jump_01.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Jump/Character-Jump_02.png",
@@ -87,10 +115,16 @@ class Character extends MovableObject {
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_00.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_00.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_00.png"
-
   ];
   images_idle = [
-    "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_00.png",
+    // 'img/Player/Idle/Idle_000.png',
+    // 'img/Player/Idle/Idle_001.png',
+    // 'img/Player/Idle/Idle_002.png',
+    // 'img/Player/Idle/Idle_003.png',
+    // 'img/Player/Idle/Idle_004.png',
+    // 'img/Player/Idle/Idle_005.png',
+    // 'img/Player/Idle/Idle_006.png',
+    // 'img/Player/Idle/Idle_007.png',
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_01.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_02.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_03.png",
@@ -109,7 +143,7 @@ class Character extends MovableObject {
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_16.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_17.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_18.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_19.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_19.png"
   ];
 
   images_throw = [
@@ -145,7 +179,23 @@ class Character extends MovableObject {
     "img/main character sprites/Character 01/Png/Character Sprite/Shoot/Character-Shoot_29.png",
   ];
 
-  images_shoot = [
+  images_hit = [
+    // "img/Player/Wak_withGun/WalkWGun_000.png",
+    // "img/Player/Wak_withGun/WalkWGun_001.png",
+    // "img/Player/Wak_withGun/WalkWGun_002.png",
+    // "img/Player/Wak_withGun/WalkWGun_003.png",
+    // "img/Player/Wak_withGun/WalkWGun_004.png",
+    // "img/Player/Wak_withGun/WalkWGun_005.png",
+    // "img/Player/Wak_withGun/WalkWGun_006.png",
+    // "img/Player/Wak_withGun/WalkWGun_007.png",
+    // "img/Player/Wak_withGun/WalkWGun_008.png",
+    // "img/Player/Wak_withGun/WalkWGun_009.png",
+    // "img/Player/Wak_withGun/WalkWGun_010.png",
+    // "img/Player/Wak_withGun/WalkWGun_011.png",
+    // "img/Player/Wak_withGun/WalkWGun_012.png",
+    // "img/Player/Wak_withGun/WalkWGun_013.png",
+    // "img/Player/Wak_withGun/WalkWGun_014.png",
+    // "img/Player/Wak_withGun/WalkWGun_015.png"
     "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_01.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_02.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_03.png",
@@ -248,6 +298,29 @@ class Character extends MovableObject {
     "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_04.png",
   ];
 
+  images_flying = [
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_00.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_01.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_02.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_03.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_04.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_05.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_06.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_07.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_08.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_09.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_10.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_11.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_12.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_13.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_14.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_15.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_16.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_17.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_18.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/In flying car/Character-In Car_19.png"
+  ];
+
   image_dead = ["img/soldier/Dead/03_Dead.png"];
   audio_collectCoin = new Audio("audio/coinCollect1.mp3");
   audio_jump = new Audio("audio/cartoon-jump-01.mp3");
@@ -258,18 +331,21 @@ class Character extends MovableObject {
   audio_background = new Audio("audio/background-music.mp3");
   world;
 
+
   constructor() {
     super().loadImage("img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_00.png");
     this.loadImages(this.images_walking);
     this.loadImages(this.images_jumping);
+    this.loadImages(this.images_flying);
     this.loadImages(this.images_throw);
-    this.loadImages(this.images_shoot);
+    this.loadImages(this.images_hit);
     this.loadImages(this.images_dying);
     this.loadImages(this.images_hurt);
     this.loadImages(this.images_idle);
     this.loadImages(this.images_run);
     this.animate();
     this.applyGravity();
+    this.applyFlyMode();
   }
 
   animate() {
@@ -277,39 +353,73 @@ class Character extends MovableObject {
     setStoppableInterval(() => this.playCharacterAnimations(), 20);
   }
 
-  checkIdleMode() {
-    setStoppableInterval(() => {
-      if (this.inactive()) {
-        let timepassed = new Date().getTime() - this.lastInteraction;
-        timepassed = timepassed / 1000;
-        if (timepassed > 3) {
-          this.idle = true;
-        }
-      }
-    }, 1000);
-  }
+  // checkIdleMode() {
+  //   setStoppableInterval(() => {
+  //     if (this.inactive()) {
+  //       let timepassed = new Date().getTime() - this.lastInteraction;
+  //       timepassed = timepassed / 1000;
+  //       if (timepassed > 3) {
+  //         this.idle = true;
+  //       }
+  //     }
+  //   }, 1000);
+  // }
 
   moveCharacter() {
     if (this.canMoveRight()) this.moveRight();
     if (this.canMoveLeft()) this.moveLeft();
     if (this.canJump()) {
-      if (!this.mute) this.audio_jump.play();
       this.jump();
     }
-    this.moveCamera();
+    // für Y Achse kamera einführen und dann gegner in der luft, andere hintergrundmusik 
+    // wie der stern bei mario kart (quasi 10sekunden oder so extra points möglich je nachdem
+    // man erwischt, danach wieder normal und das teil verschwindet, kiste einsammeln auf 2. Ebene
+    // wenn man einsammelt kann man den mondus auf F aktivieren, button oder so aufblinken lassen
+    if (this.isFlying) {
+      this.moveCameraFly();
+    }
+    if (!this.flyMode())
+      this.moveCamera();
   }
 
   playCharacterAnimations() {
-    if (this.idle || !this.isAboveGround()) this.playAnimation(this.images_idle);
-    if (this.attack()) this.playAnimation(this.images_shoot);
-    if (this.canShoot()) this.playAnimation(this.images_throw);
-    if (this.longIdle) this.playAnimation(this.images_longIdle);
-    if (this.isDead()) this.playAnimation(this.images_dying);
-    if (this.canRun()) this.playAnimation(this.images_run);
-    else if (this.isHurt()) this.playAnimationOnce(this.images_hurt);
-    else if (this.isAboveGround()) this.playAnimation(this.images_jumping);
-    else if (this.characterIsWalkingOnGround())
+    if (this.idle || (!this.isAboveGround() && !this.isOnPlatform) ||
+      this.isOnPlatform) this.playAnimation(this.images_idle);
+    if (this.attack() && !this.flyMode()) this.playAnimation(this.images_hit);
+    if (this.canShoot() && !this.flyMode()) this.playAnimation(this.images_throw);
+    if (this.flyMode()) this.playAnimation(this.images_flying);
+    if (this.isDead() && !this.flyMode()) this.playAnimation(this.images_dying);
+    if (this.canRun() && !this.flyMode()) this.playAnimation(this.images_run);
+    if (this.isHurt() && !this.flyMode()) this.playAnimationOnce(this.images_hurt);
+    if (this.isAboveGround() && !this.isFlying && !this.isOnPlatform ||
+      this.jumpOnPlatform())
+      this.playAnimation(this.images_jumping);
+    if (this.characterIsWalkingOnGround() && !this.flyMode() ||
+      this.walkOnPlatform() && !this.flyMode() && !this.canJump())
       this.playAnimation(this.images_walking);
+  }
+
+  flyMode() {
+    if (this.world.keyboard.f) {
+      this.isFlying = true;
+      this.world.characterIsFlying = true;
+      return true;
+    } else if (this.y < 240 && this.landing) {
+      this.y += 10;
+      this.landing = !this.landing;
+    }
+    this.isFlying = false;
+    this.world.characterIsFlying = false;
+  }
+
+  machineGunTimepassed() {
+    let timepassed = new Date().getTime() - this.lastShot; // Differenz in ms
+    timepassed = timepassed / 1000; // Differenz in sekunden
+    if (timepassed > 0.05) {
+      this.lastShot = new Date().getTime();
+      return true;
+    }
+    else return false;
   }
 
   attack() {
@@ -318,18 +428,30 @@ class Character extends MovableObject {
         top: 50,
         left: 70,
         right: 40,
-        bottom: 70
+        bottom: 60
       };
       return true;
     }
     if (this.world.keyboard.left || this.world.keyboard.right || this.world.keyboard.space)
       this.offset = {
-        top: 100,
+        top: 87,
         left: 70,
-        right: 75,
-        bottom: 70
+        right: 80,
+        bottom: 60
       };
     return false;
+  }
+
+  walkOnPlatform() {
+    if (this.world.keyboard.left || this.world.keyboard.right && this.isOnPlatform) {
+      return true;
+    } else return false;
+  }
+
+  jumpOnPlatform() {
+    if (this.world.keyboard.space && this.isOnPlatform) {
+      return true;
+    } else return false;
   }
 
   canRun() {
@@ -374,7 +496,7 @@ class Character extends MovableObject {
   }
 
   canJump() {
-    return this.world.keyboard.space && !this.isAboveGround();
+    return this.world.keyboard.space && !this.isAboveGround() || this.world.keyboard.space && this.isOnPlatform;
   }
 
   jump() {
@@ -388,8 +510,20 @@ class Character extends MovableObject {
     this.longIdle = false;
   }
 
+  moveCameraFly() {
+    this.world.camera_x = -this.x + 100;
+    this.world.camera_y = -this.y + 100;
+  }
+
   moveCamera() {
     return (this.world.camera_x = -this.x + 100);
+
+    //   if (this.isFlying) {
+    //     return this.world.camera_x = -this.x + 100, this,w
+    //   }
+    //   return (this.world.camera_x = -this.x + 100);
+
+    // }
   }
 
   inactive() {
@@ -402,8 +536,25 @@ class Character extends MovableObject {
 
   characterIsWalkingOnGround() {
     return (
-      this.world.keyboard.right ||
-      (this.world.keyboard.left && !this.isAboveGround())
+      (this.world.keyboard.right ||
+        this.world.keyboard.left && !this.isAboveGround())
     );
   }
+
+
+  // jumpMode() {
+  //   if (this.world.keyboard.space && !this.isJumping) {
+  //     this.isJumping = true;
+  //     this.y -= 30;
+
+  //   }
+  //   // Fallkontrolle, nachdem der Sprung beendet ist
+  //   else if (!this.world.keyboard.space && this.timepassed() && this.isJumping && this.y < 80) {
+  //     this.y += 10;
+  //     console.log(this.y);
+  //     if (this.y >= 80) {
+  //       this.isJumping = false;
+  //     }
+  //   }
+  // }
 }

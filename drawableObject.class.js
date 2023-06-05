@@ -24,6 +24,12 @@ class DrawableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
+  drawScore(ctx) {
+    ctx.font = this.fontSize + ' Space Mono';
+    ctx.fillStyle = this.fontColor;
+    ctx.fillText(this.score, this.x, this.y, this.width, this.height);
+  }
+
   drawFrame(ctx) {
     if (
       this.canDrawFrame()
@@ -45,7 +51,11 @@ class DrawableObject {
       this instanceof Enemy1 ||
       this instanceof Enemy2 ||
       this instanceof Enemy3 ||
+      this instanceof Enemy4 ||
+      this instanceof Endboss ||
       this instanceof CollectableObject ||
-      this instanceof PlatformObject;
+      this instanceof CollectableThrowingStar ||
+      this instanceof PlatformObject1 ||
+      this instanceof PlatformObject2;
   }
 }
