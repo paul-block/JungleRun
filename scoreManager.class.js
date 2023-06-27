@@ -1,20 +1,20 @@
 class ScoreManager {
 
     score = {
-        username: 'cuise',
-        score: 100
+        username: '',
+        score: 
     };
 
     scoresArr = [];
 
     constructor() {
         this.firebaseConfig = {
-            apiKey: "AIzaSyAGFV3qKnFcPBYRnSmRT3Wx4GJftIX-ssY",
-            authDomain: "galaxy-odyssey.firebaseapp.com",
-            projectId: "galaxy-odyssey",
-            storageBucket: "galaxy-odyssey.appspot.com",
-            messagingSenderId: "800835863499",
-            appId: "1:800835863499:web:62332dba8cf8edc091ac4e"
+            apiKey: "",
+            authDomain: "",
+            projectId: "",
+            storageBucket: "",
+            messagingSenderId: "",
+            appId: ""
         };
         this.app = firebase.initializeApp(this.firebaseConfig);
         this.db = firebase.firestore(this.app);
