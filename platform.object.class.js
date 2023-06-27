@@ -1,11 +1,12 @@
 class PlatformObject extends MovableObject {
     width = 180;
     height = 158;
+    top = this.y - this.height;
 
     offset = {
-        top: 0,
-        left: 5,
-        right: 5,
+        top: 140,
+        left: 20,
+        right: 25,
         bottom: 0,
     };
 

@@ -55,14 +55,13 @@ class Bomb extends MovableObject {
 
     animate() {
         setStoppableInterval(() => {
-            if (this.y < 280) {
+            if (this.y < 470) {
                 this.playAnimation(this.image_bomb);
-                console.log(this.y);
             }
         }, 100);
         setStoppableInterval(() => {
-            if (this.y > 320) {
-                this.playAnimationOnce(this.image_explosion);
+            if (this.y > 520) {
+                this.playAnimation(this.image_explosion);
             }
         }, 10);
     }

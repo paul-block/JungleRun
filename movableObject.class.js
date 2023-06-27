@@ -23,14 +23,18 @@ class MovableObject extends DrawableObject {
     this.currentImg++;
   }
 
-  playAnimationOnce(images) {
-    let i = this.currentImg % images.length;
-    if (i === images.length - 1) {
-      return;
-    }
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.currentImg++;
+  playAnimationOnce(images, frameDuration = 50) {
+    this.currentImg = 0;
+    const intervalId = setInterval(() => {
+      let i = this.currentImg % images.length;
+      let path = images[i];
+      this.img = this.imageCache[path];
+      if (i === images.length - 1) {
+        clearInterval(intervalId);
+      } else {
+        this.currentImg++;
+      }
+    }, frameDuration);
   }
 
   gameOver() {
@@ -68,8 +72,14 @@ class MovableObject extends DrawableObject {
 
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
-    timepassed = timepassed / 1000; // Differenz in sekunden
-    return timepassed < 1;
+    timepassed = timepassed / 500; // Differenz in sekunden
+    return timepassed < .5;
+  }
+
+  canGetDamage() {
+    let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
+    timepassed = timepassed / 500; // Differenz in sekunden
+    return timepassed < 1.5;
   }
 
   timepassed() {
@@ -118,8 +128,9 @@ class MovableObject extends DrawableObject {
 
   isAboveGround() {
     if (this instanceof ThrowableObject) return true;
-    if (this instanceof Bomb) return this.y < 340;
-    else return this.y < 240;
+    if (this instanceof Bomb) return this.y < 530;
+    if (this.world.character.isOnPlatform) return false;
+    else return this.y < 440;
     // Abfrage rein wenn character auf platform steht return false
   }
 

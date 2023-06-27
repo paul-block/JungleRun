@@ -1,8 +1,10 @@
 class Enemy2 extends MovableObject {
     height = 90;
     width = 90;
-    y = 340;
+    y = 535;
     x = 800 + Math.random() * 3000;
+    isDying = false;
+
     images_attack = [
         "img/enemies/Char01/Attack/skeleton-Attack_0.png",
         "img/enemies/Char01/Attack/skeleton-Attack_1.png",
@@ -91,13 +93,14 @@ class Enemy2 extends MovableObject {
     hp = 20;
 
 
-    constructor() {
+    constructor(x) {
         super().loadImage("img/enemies/Char01/Walk/skeleton-Walk_0.png");
         this.loadImages(this.images_walking);
         this.loadImages(this.image_dead);
         this.loadImages(this.images_attack);
         this.animate();
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speed = 0.3 + Math.random() * 0.25;
+        this.x = x;
     }
 
     animate() {
@@ -107,7 +110,7 @@ class Enemy2 extends MovableObject {
 
         setInterval(() => {
             if (!this.hitted) this.playAnimation(this.images_walking);
-        }, 90);
+        }, 30);
 
         setInterval(() => {
             if (this.hp == 10 && this.hitted) {
@@ -116,13 +119,14 @@ class Enemy2 extends MovableObject {
                 }
                 this.height = 105;
                 this.width = 105;
-                this.y = 325;
+                this.y = 528;
                 this.playAnimation(this.images_attack);
             }
         }, 30);
 
         setInterval(() => {
-            if (this.hp == 0 && this.hitted) {
+            if (this.hp == 0 && !this.isDying) {
+                this.isDying = true;
                 this.playAnimationOnce(this.image_dead);
                 this.speed = 0;
             }

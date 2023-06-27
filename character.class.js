@@ -1,7 +1,7 @@
 class Character extends MovableObject {
   height = 250;
   width = 200;
-  y = 240;
+  y = 440;
   speed = 4;
   collectedCoins = 0;
   collectedThrowingStars = 0;
@@ -16,12 +16,18 @@ class Character extends MovableObject {
   lastInteraction = 0;
   idle = false;
   shoot = false;
-  longIdle = false;
   mute = true;
   muteBg = true;
   isOnPlatform = false;
   landing = false;
-  // isJumping = false;
+  scoreSet = false;
+  superBullet = false;
+  canFly = false;
+  countingDown;
+  count;
+  initialFlightMode = false;
+  readyToFly = false;
+  jumpStartTime;
 
   images_run = [
     "img/main character sprites/Character 01/Png/Character Sprite/Fast Run/Character-FastRun_0.png",
@@ -35,22 +41,6 @@ class Character extends MovableObject {
   ];
 
   images_walking = [
-    // "img/Player/Walk/Walk_000.png",
-    // "img/Player/Walk/Walk_001.png",
-    // "img/Player/Walk/Walk_002.png",
-    // "img/Player/Walk/Walk_003.png",
-    // "img/Player/Walk/Walk_004.png",
-    // "img/Player/Walk/Walk_005.png",
-    // "img/Player/Walk/Walk_006.png",
-    // "img/Player/Walk/Walk_007.png",
-    // "img/Player/Walk/Walk_008.png",
-    // "img/Player/Walk/Walk_009.png",
-    // "img/Player/Walk/Walk_010.png",
-    // "img/Player/Walk/Walk_011.png",
-    // "img/Player/Walk/Walk_012.png",
-    // "img/Player/Walk/Walk_013.png",
-    // "img/Player/Walk/Walk_014.png",
-    // "img/Player/Walk/Walk_015.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_00.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_01.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_02.png",
@@ -117,14 +107,6 @@ class Character extends MovableObject {
     "img/main character sprites/Character 01/Png/Character Sprite/Walk/Character-Walk_00.png"
   ];
   images_idle = [
-    // 'img/Player/Idle/Idle_000.png',
-    // 'img/Player/Idle/Idle_001.png',
-    // 'img/Player/Idle/Idle_002.png',
-    // 'img/Player/Idle/Idle_003.png',
-    // 'img/Player/Idle/Idle_004.png',
-    // 'img/Player/Idle/Idle_005.png',
-    // 'img/Player/Idle/Idle_006.png',
-    // 'img/Player/Idle/Idle_007.png',
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_01.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_02.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_03.png",
@@ -180,35 +162,19 @@ class Character extends MovableObject {
   ];
 
   images_hit = [
-    // "img/Player/Wak_withGun/WalkWGun_000.png",
-    // "img/Player/Wak_withGun/WalkWGun_001.png",
-    // "img/Player/Wak_withGun/WalkWGun_002.png",
-    // "img/Player/Wak_withGun/WalkWGun_003.png",
-    // "img/Player/Wak_withGun/WalkWGun_004.png",
-    // "img/Player/Wak_withGun/WalkWGun_005.png",
-    // "img/Player/Wak_withGun/WalkWGun_006.png",
-    // "img/Player/Wak_withGun/WalkWGun_007.png",
-    // "img/Player/Wak_withGun/WalkWGun_008.png",
-    // "img/Player/Wak_withGun/WalkWGun_009.png",
-    // "img/Player/Wak_withGun/WalkWGun_010.png",
-    // "img/Player/Wak_withGun/WalkWGun_011.png",
-    // "img/Player/Wak_withGun/WalkWGun_012.png",
-    // "img/Player/Wak_withGun/WalkWGun_013.png",
-    // "img/Player/Wak_withGun/WalkWGun_014.png",
-    // "img/Player/Wak_withGun/WalkWGun_015.png"
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_01.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_02.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_03.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_04.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_05.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_06.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_07.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_08.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_09.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_10.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_11.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_12.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_13.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_01.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_02.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_03.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_04.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_05.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_06.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_07.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_08.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_09.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_10.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_11.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_12.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_13.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_14.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_15.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Hit/Character-Hit_16.png",
@@ -291,11 +257,15 @@ class Character extends MovableObject {
   ];
 
   images_hurt = [
-    "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_00.png",
+    "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_01.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_02.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_03.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Idle/Character-Idle_04.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_00.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_01.png",
     "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_02.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_03.png",
-    "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_04.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_03.png",
+    // "img/main character sprites/Character 01/Png/Character Sprite/Dead/Character-Dead_04.png",
   ];
 
   images_flying = [
@@ -323,7 +293,9 @@ class Character extends MovableObject {
 
   image_dead = ["img/soldier/Dead/03_Dead.png"];
   audio_collectCoin = new Audio("audio/coinCollect1.mp3");
-  audio_jump = new Audio("audio/cartoon-jump-01.mp3");
+  audio_sword = new Audio("audio/sword.wav");
+  audio_throw = new Audio("audio/wurfsternSound.wav");
+  // audio_jump = new Audio("audio/cartoon-jump-01.mp3");
   audio_collectBottle = new Audio("audio/collectBottle.mp3");
   audio_smashingBottle = new Audio("audio/bottleSmash.mp3");
   audio_bonusHP = new Audio("audio/chickenHitted.mp3");
@@ -344,26 +316,19 @@ class Character extends MovableObject {
     this.loadImages(this.images_idle);
     this.loadImages(this.images_run);
     this.animate();
-    this.applyGravity();
+    if (!this.initialFlightMode) {
+      this.applyGravity();
+    }
     this.applyFlyMode();
+    setTimeout(() => {
+      this.initialFlightMode = true;
+    }, 5000);
   }
 
   animate() {
     setStoppableInterval(() => this.moveCharacter(), 600 / 60);
-    setStoppableInterval(() => this.playCharacterAnimations(), 20);
+    setStoppableInterval(() => this.playCharacterAnimations(), 25);
   }
-
-  // checkIdleMode() {
-  //   setStoppableInterval(() => {
-  //     if (this.inactive()) {
-  //       let timepassed = new Date().getTime() - this.lastInteraction;
-  //       timepassed = timepassed / 1000;
-  //       if (timepassed > 3) {
-  //         this.idle = true;
-  //       }
-  //     }
-  //   }, 1000);
-  // }
 
   moveCharacter() {
     if (this.canMoveRight()) this.moveRight();
@@ -371,15 +336,8 @@ class Character extends MovableObject {
     if (this.canJump()) {
       this.jump();
     }
-    // für Y Achse kamera einführen und dann gegner in der luft, andere hintergrundmusik 
-    // wie der stern bei mario kart (quasi 10sekunden oder so extra points möglich je nachdem
-    // man erwischt, danach wieder normal und das teil verschwindet, kiste einsammeln auf 2. Ebene
-    // wenn man einsammelt kann man den mondus auf F aktivieren, button oder so aufblinken lassen
-    if (this.isFlying) {
-      this.moveCameraFly();
-    }
-    if (!this.flyMode())
-      this.moveCamera();
+    this.moveCamera();
+    this.checkIfOnPlatform();
   }
 
   playCharacterAnimations() {
@@ -389,23 +347,103 @@ class Character extends MovableObject {
     if (this.canShoot() && !this.flyMode()) this.playAnimation(this.images_throw);
     if (this.flyMode()) this.playAnimation(this.images_flying);
     if (this.isDead() && !this.flyMode()) this.playAnimation(this.images_dying);
+    // Man könnte ihn auch direkt ausblenden mit dem boom wie bei den enemies
     if (this.canRun() && !this.flyMode()) this.playAnimation(this.images_run);
-    if (this.isHurt() && !this.flyMode()) this.playAnimationOnce(this.images_hurt);
-    if (this.isAboveGround() && !this.isFlying && !this.isOnPlatform ||
-      this.jumpOnPlatform())
+    if (this.isHurt() && !this.flyMode()) this.playAnimation(this.images_hurt);
+    if (this.isAboveGround() && !this.isFlying && !this.isOnPlatform && !this.attack() ||
+      this.jumpOnPlatform() && !this.isFlying && !this.attack())
       this.playAnimation(this.images_jumping);
-    if (this.characterIsWalkingOnGround() && !this.flyMode() ||
-      this.walkOnPlatform() && !this.flyMode() && !this.canJump())
+    if (this.characterIsWalkingOnGround() && !this.flyMode() && !this.attack() && !this.isHurt() && !this.canRun() ||
+      this.walkOnPlatform() && !this.flyMode() && !this.isHurt() && !this.canRun())
       this.playAnimation(this.images_walking);
+    this.activateFlyMode();
+    this.checkSuperBullet();
+    this.checkHealthPotion();
+    this.activateHealthBoost();
+  }
+
+  activateFlyMode() {
+    if (this.collectedCoins >= 3) {
+      document.getElementById('flyItem').classList.remove('grayscale');
+      this.canFly = true;
+    } else if (this.collectedCoins < 3) {
+      document.getElementById('flyItem').classList.add('grayscale');
+      return false;
+    };
+  }
+
+  checkSuperBullet() {
+    if (this.collectedCoins >= 2) {
+      document.getElementById('itemBullet').classList.remove('grayscale');
+      this.superBullet = true;
+    }
+    else if (this.collectedCoins < 2) {
+      document.getElementById('itemBullet').classList.add('grayscale');
+    }
+  }
+
+  checkHealthPotion() {
+    if (this.collectedCoins >= 1) {
+      document.getElementById('healthPotion').classList.remove('grayscale');
+    }
+    else if (this.collectedCoins < 1) {
+      document.getElementById('healthPotion').classList.add('grayscale');
+    }
+  }
+
+  activateHealthBoost() {
+    if (this.collectedCoins >= 1 && this.world.keyboard.q) {
+      if (this.energy < 100 && this.world.keyboard.q) {
+        this.energy += 20;
+        document.getElementById('canvas').classList.add('heal');
+        setTimeout(() => {
+          document.getElementById('canvas').classList.remove('heal');
+        }, 225);
+        if (this.energy > 100) this.energy = 100;
+        this.world.StatusBarHealth.setPercentage(this.energy);
+        if (this.collectedCoins < 0) this.collectedCoins = 0;
+        this.collectedCoins -= 1;
+      }
+    }
+  }
+
+
+  countdown() {
+    document.getElementById('timer').classList.remove('d-none');
+    if (!this.countingDown) {
+      this.count = 11;
+      this.countingDown = true;
+      let countdownTimer = setInterval(() => {
+        this.count--;
+        if (this.count <= 0) {
+          clearInterval(countdownTimer);
+          this.countingDown = false;
+          document.getElementById('timer').classList.add('d-none');
+          this.world.ExtraPoints.show();
+          setTimeout(() => {
+            this.world.Score.addScore(this.world.ExtraPoints.score);
+          }, 2999);
+        }
+        document.getElementById('timer').innerText = this.count;
+      }, 1000);
+    }
   }
 
   flyMode() {
-    if (this.world.keyboard.f) {
+    if (this.canFly && this.world.keyboard.f) {
+      this.countdown();
       this.isFlying = true;
       this.world.characterIsFlying = true;
+      this.collectedCoins -= 3;
+      if (this.collectedCoins < 0) this.collectedCoins = 0;
+
+      setTimeout(() => {
+        this.canFly = false;
+        this.readyToFly = false;
+      }, 11000);
       return true;
-    } else if (this.y < 240 && this.landing) {
-      this.y += 10;
+    } else if (this.y < 440 && this.landing) {
+      this.y += 1;
       this.landing = !this.landing;
     }
     this.isFlying = false;
@@ -413,8 +451,8 @@ class Character extends MovableObject {
   }
 
   machineGunTimepassed() {
-    let timepassed = new Date().getTime() - this.lastShot; // Differenz in ms
-    timepassed = timepassed / 1000; // Differenz in sekunden
+    let timepassed = new Date().getTime() - this.lastShot;
+    timepassed = timepassed / 1000;
     if (timepassed > 0.05) {
       this.lastShot = new Date().getTime();
       return true;
@@ -424,6 +462,7 @@ class Character extends MovableObject {
 
   attack() {
     if (this.world.keyboard.e) {
+      this.audio_sword.play();
       this.offset = {
         top: 50,
         left: 70,
@@ -443,7 +482,7 @@ class Character extends MovableObject {
   }
 
   walkOnPlatform() {
-    if (this.world.keyboard.left || this.world.keyboard.right && this.isOnPlatform) {
+    if (this.world.keyboard.left && this.isOnPlatform || this.world.keyboard.right && this.isOnPlatform) {
       return true;
     } else return false;
   }
@@ -467,8 +506,10 @@ class Character extends MovableObject {
   }
 
   canShoot() {
-    if (this.world.keyboard.d && this.collectedThrowingStars > 0)
+    if (this.world.keyboard.d && this.collectedThrowingStars > 0) {
+      this.audio_throw.play();
       return true;
+    }
     if (this.world.keyboard.left || this.world.keyboard.right)
       return false;
   }
@@ -479,7 +520,7 @@ class Character extends MovableObject {
 
   moveRight() {
     super.moveRight();
-    this.deactivateIdleMode();
+    // this.deactivateIdleMode();
     this.otherDirection = false;
     this.lastInteraction = new Date().getTime();
   }
@@ -490,40 +531,31 @@ class Character extends MovableObject {
 
   moveLeft() {
     super.moveLeft();
-    this.deactivateIdleMode();
+    // this.deactivateIdleMode();
     this.otherDirection = true;
     this.lastInteraction = new Date().getTime();
   }
 
   canJump() {
-    return this.world.keyboard.space && !this.isAboveGround() || this.world.keyboard.space && this.isOnPlatform;
+    return this.world.keyboard.space && !this.isAboveGround() || this.world.keyboard.space && this.isOnPlatform
+      || this.world.keyboard.left && this.isOnPlatform && this.world.keyboard.space || this.world.keyboard.right && this.isOnPlatform && this.world.keyboard.space;
   }
 
   jump() {
     super.jump();
-    this.deactivateIdleMode();
+    this.jumpStartTime = Date.now() / 1000; // Zeit in Sekunden seit 1970
+    // this.deactivateIdleMode();
     this.lastInteraction = new Date().getTime();
+    this.audio_jump.play();
+
   }
 
   deactivateIdleMode() {
     this.idle = false;
-    this.longIdle = false;
-  }
-
-  moveCameraFly() {
-    this.world.camera_x = -this.x + 100;
-    this.world.camera_y = -this.y + 100;
   }
 
   moveCamera() {
     return (this.world.camera_x = -this.x + 100);
-
-    //   if (this.isFlying) {
-    //     return this.world.camera_x = -this.x + 100, this,w
-    //   }
-    //   return (this.world.camera_x = -this.x + 100);
-
-    // }
   }
 
   inactive() {
@@ -536,25 +568,14 @@ class Character extends MovableObject {
 
   characterIsWalkingOnGround() {
     return (
-      (this.world.keyboard.right ||
+      (this.world.keyboard.right && !this.isAboveGround() ||
         this.world.keyboard.left && !this.isAboveGround())
     );
   }
 
+  checkIfOnPlatform() {
+    if (!this.isOnPlatform && !this.isAboveGround()) this.y = 440;
+    else return false;
+  }
 
-  // jumpMode() {
-  //   if (this.world.keyboard.space && !this.isJumping) {
-  //     this.isJumping = true;
-  //     this.y -= 30;
-
-  //   }
-  //   // Fallkontrolle, nachdem der Sprung beendet ist
-  //   else if (!this.world.keyboard.space && this.timepassed() && this.isJumping && this.y < 80) {
-  //     this.y += 10;
-  //     console.log(this.y);
-  //     if (this.y >= 80) {
-  //       this.isJumping = false;
-  //     }
-  //   }
-  // }
 }

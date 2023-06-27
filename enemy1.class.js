@@ -85,16 +85,17 @@ class Enemy1 extends MovableObject {
   hp = 20;
   drop = false;
 
-  constructor(bombTime) {
+  constructor(bombTime, y, speed = 0.5 + Math.random() * 0.25) {
     super().loadImage("img/FlyingMonster/Moving/Moving_01.png");
     this.loadImages(this.images_flying);
     this.loadImages(this.image_dead);
     this.loadImages(this.images_attack);
     this.animate();
-    this.speed = 0.5 + Math.random() * 0.25;
-    // setInterval(() => {
-    //   this.setRandomDrop();
-    // }, bombTime);
+    this.speed = speed;
+    this.y = y;
+    setInterval(() => {
+      this.setRandomDrop();
+    }, bombTime);
   }
 
   // animate() {
@@ -139,12 +140,10 @@ class Enemy1 extends MovableObject {
 
   setRandomDrop() {
     this.drop = true;
-    console.log('Drop ist nun: ' + this.drop);
 
     // Setzen Sie "drop" nach 200ms auf false
     setTimeout(() => {
       this.drop = false;
-      console.log('Drop ist nun: ' + this.drop);
     }, 20);
   }
 }

@@ -6,7 +6,7 @@ class Score extends DrawableObject {
 
     constructor() {
         super();
-        this.x = 650;
+        this.x = 910;
         this.y = 60;
         this.width = 60;
         this.height = 60;

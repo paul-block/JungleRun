@@ -8,6 +8,7 @@ class Keyboard {
   e = false;
   shift = false;
   f = false;
+  q = false;
 
   flipF = false;
 

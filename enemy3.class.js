@@ -1,7 +1,7 @@
 class Enemy3 extends MovableObject {
     height = 120;
     width = 100;
-    y = 310;
+    y = 510;
     x = 600 + Math.random() * 3000;
     images_walking = [
         "img/enemies/Char02/Walk/skeleton-Walk_0.png",
@@ -109,14 +109,15 @@ class Enemy3 extends MovableObject {
     newXset = false;
 
 
-    constructor() {
+    constructor(x) {
         super().loadImage("img/Mons 5/Walk/skeleton-Walk_00.png");
         this.loadImages(this.images_walking);
         this.loadImages(this.image_dead);
         this.loadImages(this.images_attack);
         this.animate();
         this.setXforAttack();
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speed = 0.2 + Math.random() * 0.25;
+        this.x = x;
     }
 
     animate() {
@@ -132,7 +133,7 @@ class Enemy3 extends MovableObject {
                 }
                 this.height = 210;
                 this.width = 200;
-                this.y = 260;
+                this.y = 450;
                 if (!this.newXset) {
                     this.x = this.x - 70;
                     this.newXset = true;
@@ -145,11 +146,12 @@ class Enemy3 extends MovableObject {
                 };
                 this.playAnimation(this.images_attack);
             }
-        }, 20);
+        }, 30);
         setInterval(() => {
-            if (this.hp == 0 && this.hitted) {
-                this.speed = 0;
+            if (this.hp <= 0 && !this.isDying) {
+                this.isDying = true;
                 this.playAnimationOnce(this.image_dead);
+                this.speed = 0;
             }
         }, 50);
     }

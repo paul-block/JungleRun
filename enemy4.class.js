@@ -1,8 +1,33 @@
 class Enemy4 extends MovableObject {
     height = 80;
     width = 110;
-    y = 350;
-    x = 600 + Math.random() * 3000;
+    y = 545;
+    x = 800;
+    endPlatformLeft;
+    endPlatfromRight;
+    attackY;
+    otherDirection = false;
+
+    images_idle = [
+        "img/enemies/Char03/Idle/skeleton-Idle_0.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_1.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_2.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_3.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_4.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_5.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_6.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_7.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_8.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_9.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_10.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_11.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_12.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_13.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_14.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_15.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_16.png",
+        "img/enemies/Char03/Idle/skeleton-Idle_17.png"
+    ];
     images_walking = [
         "img/enemies/Char03/Walk/skeleton-Walk_0.png",
         "img/enemies/Char03/Walk/skeleton-Walk_1.png",
@@ -82,37 +107,60 @@ class Enemy4 extends MovableObject {
     hp = 20;
 
 
-    constructor() {
+    constructor(y, x, walkToLeft, walkToRight) {
         super().loadImage("img/Mons 5/Walk/skeleton-Walk_00.png");
         this.loadImages(this.images_walking);
         this.loadImages(this.image_dead);
         this.loadImages(this.images_attack);
+        this.loadImages(this.images_idle);
         this.animate();
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.attackY = y;
+        this.y = y;
+        this.x = x;
+        this.endPlatformLeft = x - walkToLeft;
+        this.endPlatfromRight = x + walkToRight;
+        this.speed = 0.25 + Math.random() * 0.15;
+        // this.moveLeft();
     }
 
     animate() {
         setInterval(() => {
-            this.moveLeft();
+            if (this.otherDirection == false) {
+                if (this.x <= this.endPlatformLeft) {
+                    this.otherDirection = true;
+                } else {
+                    this.moveLeft();
+                }
+            } else {
+                if (this.x >= this.endPlatfromRight) {
+                    this.otherDirection = false;
+                } else {
+                    this.moveRight();
+                }
+            }
         }, 1000 / 60);
+
 
         setInterval(() => {
             if (!this.hitted) this.playAnimation(this.images_walking);
             else if (this.hp == 10 && this.hitted) {
-                if (this.speed <= 0.5) {
-                    this.speed = this.speed + Math.random() * 0.1;
-                }
+                // if (this.speed <= 0.5) {
+                //     this.speed = this.speed + Math.random() * 0.1;
+                // }
                 this.playAnimation(this.images_attack);
                 this.height = 85;
                 this.width = 115;
+                this.y = this.attackY;
             }
-        }, 20);
+        }, 35);
 
         setInterval(() => {
-            if (this.hp == 0 && this.hitted) {
+            if (this.hp <= 0 && !this.isDying) {
+                this.isDying = true;
                 this.playAnimationOnce(this.image_dead);
                 this.speed = 0;
             }
         }, 50);
     }
+
 }

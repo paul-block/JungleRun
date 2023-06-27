@@ -51,11 +51,13 @@ class DrawableObject {
       this instanceof Enemy1 ||
       this instanceof Enemy2 ||
       this instanceof Enemy3 ||
-      this instanceof Enemy4 ||
+      this instanceof Enemy4 |
+      this instanceof FlyingEnemy2 ||
+      this instanceof FlyingEnemy3 ||
       this instanceof Endboss ||
       this instanceof CollectableObject ||
       this instanceof CollectableThrowingStar ||
-      this instanceof PlatformObject1 ||
+      this instanceof PlatformObject ||
       this instanceof PlatformObject2;
   }
 }

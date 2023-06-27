@@ -1,22 +1,26 @@
 class CollectableObject extends MovableObject {
-  images_coins = ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"];
-  height = 120;
-  width = 120;
+  images_coins = ["img/crystal.png"];
+  height = 60;
+  width = 60;
   offset = {
-    top: 35,
-    left: 35,
-    right: 35,
-    bottom: 35,
+    top: 0,
+    left: 10,
+    right: 10,
+    bottom: 0,
   };
   collected = false;
+  scale = 1;
 
-  constructor(x) {
+  constructor(x, y) {
     super();
-    this.loadImage("img/8_coin/coin_1.png");
+
+    this.loadImage("img/crystal.png");
     this.loadImages(this.images_coins);
     this.animate();
+    // this.animateScale();
+
     this.x = x;
-    this.y = 170;
+    this.y = y;
   }
 
   animate() {
@@ -24,4 +28,19 @@ class CollectableObject extends MovableObject {
       this.playAnimation(this.images_coins);
     }, 250);
   }
+
+  // getScale() {
+  //   return this.scale;
+  // }
+
+  // animateScale() {
+  //   setInterval(() => {
+  //     if (this.scale >= 1.05 || this.scale <= 1) {
+  //       this.scaleSpeed = -this.scaleSpeed;
+  //     }
+  //     this.scale += this.scaleSpeed;
+  //   }, 100);
+  // }
 }
+
+

@@ -15,12 +15,12 @@ class CollectableThrowingStar extends MovableObject {
         bottom: 0,
     };
 
-    constructor(x) {
+    constructor(x, y) {
         super().loadImage(
             "img/main character sprites/Character 01/Png/Projectile/P1.png",
         );
         this.loadImages(this.image_throwingStar);
         this.x = x;
-        this.y = 180;
+        this.y = y;
     }
 }
